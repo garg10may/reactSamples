@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { useEffect } from 'react';
 
 function App() {
+
+  const [counter, setCounter] = React.useState(0);
+  const [intervalId, setIntervalId] = React.useState('');
+
+  const start = () => {
+    const intervalId = setInterval(() => {
+      setCounter(prevCounter => prevCounter + 1);
+    }, 1000);
+    setIntervalId(intervalId);
+  }
+
+  const reset = () => {
+    setCounter(0);
+  }
+
+
+  const pause = () => {
+    clearInterval(intervalId);
+  }
+
+  const stop = () => {
+    clearInterval(intervalId);
+    setCounter(0);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Hello StopWatch</h1>
+      <h3>{counter}</h3>
+      <button onClick={start}>Start</button>
+      <button onClick={pause}>pause</button>
+      <button onClick={reset}>Reset</button>
+      <button onClick={stop}>Stop</button>
     </div>
   );
 }
